@@ -58,9 +58,9 @@ class S3Store:
         
         # Set up AWS credentials
         s3_client = boto3.client('s3',
-                                region_name=os.environ(['S3_REGION']),
-                                aws_access_key_id=os.environ(['S3_API_KEY']),
-                                aws_secret_access_key=os.environ(['S3_SECRET_KEY']))
+                                region_name=os.environ['S3_REGION'],
+                                aws_access_key_id=os.environ['S3_API_KEY'],
+                                aws_secret_access_key=os.environ['S3_SECRET_KEY'])
 
         def compute_vars(input):
             input = input.replace("%width%", str(images[0].shape[1]))
@@ -99,16 +99,16 @@ class S3Store:
                 "type": self.type
             })
 
-            s3_bucket_name = os.environ(["S3_BUCKET_NAME"])
-            s3_folder_name = os.environ(["S3_IMAGE_FOLDER"])
+            s3_bucket_name = os.environ["S3_BUCKET_NAME"]
+            s3_folder_name = os.environ["S3_IMAGE_FOLDER"]
             
             with open(current_output_image_path, 'rb') as f:
                 s3_client.upload_fileobj(f, s3_bucket_name, f'{s3_folder_name}/{filename}.png')
 
             # Send a POST request to the Go server with the prediction ID and S3 URL
-            s3_url = os.environ(['S3_IMAGE_URL']) + filename + '.png'
+            s3_url = os.environ['S3_IMAGE_URL'] + filename + '.png'
             data = {'prediction_id': filename, 's3_url': s3_url}
-            post_url = os.environ(['POST_URL'])
+            post_url = os.environ['POST_URL']
             requests.post(post_url, data=data)
 
         return { "ui": { "images": results } }
