@@ -10,7 +10,8 @@ aiohttp
 accelerate
 pyyaml
 boto3
-opencv-python
+
+#Comfy WAS Node Suite
 cmake
 fairscale>=0.4.4
 git+https://github.com/WASasquatch/img2texture.git
@@ -26,5 +27,16 @@ rembg
 scikit-image==0.20.0
 scikit-learn
 scipy
-timm>=0.4.12
 tqdm
+
+#Comfy Controlnet Preprocessors
+opencv-contrib-python
+opencv-python
+timm==0.6.7
+torchvision
+prettytable==3.6.0
+addict
+yapf
+mediapipe==0.9.1.0
+fvcore
+omegaconf
